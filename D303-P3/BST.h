@@ -8,6 +8,7 @@ using namespace std;
 class BST 
 {
 public:
+
 	struct BTNode
 	{
 		string dataKey;
@@ -26,16 +27,25 @@ public:
 		virtual ~BTNode() {}
 	};
 
+	//data
 	BTNode* root;
-	BST(BTNode* new_root)
-	{
-		root = new_root;
-	}
+	
+	//default Constructor
+	BST() {	root = new BTNode(); }
+
+	//constructor
+	BST(BTNode* new_root) { root = new_root; }
 
 	string find(BTNode* local_root, const string& target);
-	
-
 	bool insert(BTNode*& local_root, const map<string, char>::iterator& item);
+
+
+	//Make the Morse Code Tree
+	void make_morse_tree(ifstream& fin);
+
+	//Insert with a 
+	void insert_with_code(string& letter_code, int idx, BTNode*& local_root,
+		char& letter);
 	
 };
 

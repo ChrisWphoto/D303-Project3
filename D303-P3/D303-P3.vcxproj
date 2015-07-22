@@ -70,6 +70,9 @@
   <ItemGroup>
     <ClInclude Include="BST.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="morse.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
