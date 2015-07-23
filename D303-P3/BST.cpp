@@ -122,18 +122,35 @@ string BST::decoding(BTNode* root,  string letter)
 		switch (step)
 		{
 		case '.':
-			if (current->left == NULL){return "The code is too long";}
+			if (current->left == NULL){return " The code is too long";}
 			current = current->left;
 			break;
 		case '_':
-			if (current->right == NULL){return "The code is too long";}
+			if (current->right == NULL){return " The code is too long";}
 			current = current->right;
 			break;
 		default:
-			error = string("The character, ") + step + (" is not recognized.");
+			error = string(" Error: Character, ") + step + (" is not recognized.");
 			return error;
 		}
 	}
 	return current->dataKey;
 	
+}
+
+//in-order traverse wrapper
+string BST::in_order() {
+	string result;
+	in_order_recursive(result, root);
+	return result;
+}
+
+//in-order recursive function
+void BST::in_order_recursive(string& result, BTNode*& local_root) {
+	if (local_root != nullptr){
+		in_order_recursive(result, local_root->left);
+		result += local_root->dataKey;
+		in_order_recursive(result, local_root->right);
+
+	}
 }
