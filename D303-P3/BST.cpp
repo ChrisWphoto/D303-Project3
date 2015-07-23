@@ -1,5 +1,6 @@
 #include "BST.h"
 #include <fstream>
+#include <sstream>
 bool BST::insert(BTNode*& local_root, const map<string,char>::iterator& item)
 {
 	if (local_root == NULL)
@@ -61,4 +62,78 @@ void BST::insert_with_code(string& letter_code, int idx, BTNode*& local_root,
 		local_root->dataKey = letter; 
 
 
+}
+
+//the parser for reading from file
+string BST::decode_morse(ifstream& fin)
+{
+	if (!fin.good())
+	{
+		return "The file can not be opened";
+	}
+	stringstream buffer;
+	buffer << fin.rdbuf();
+	string code_to_decipher, decoded = "";
+
+	while (buffer >> code_to_decipher)
+	{
+		decoded += decoding(root, code_to_decipher);
+	}
+
+	return decoded;
+}
+
+//overloaded to accept plain string code
+string BST::decode_morse(string code)
+{
+	stringstream buffer(code);
+	string code_to_decipher, decoded = "";
+
+	while (buffer >> code_to_decipher)
+	{
+		decoded += decoding(root, code_to_decipher);
+	}
+
+	return decoded;
+
+}
+
+//the searching portion
+string BST::decoding(BTNode* root,  string letter)
+{
+	string error;
+	//check to see if there is a tree ready	
+	if (root == NULL)
+	{
+		error = "The tree is empty! Be sure to populate the data first";
+		return error;
+	}
+	if (letter.empty())
+	{
+		error = "There needs to be a code to decode!";
+		return error;
+	}
+	char step;
+	BTNode * current = root;
+	for (int i = 0; i < letter.size(); i++)
+	{
+		
+		step = letter[i];
+		switch (step)
+		{
+		case '.':
+			if (current->left == NULL){return "The code is too long";}
+			current = current->left;
+			break;
+		case '_':
+			if (current->right == NULL){return "The code is too long";}
+			current = current->right;
+			break;
+		default:
+			error = string("The character, ") + step + (" is not recognized.");
+			return error;
+		}
+	}
+	return current->dataKey;
+	
 }
