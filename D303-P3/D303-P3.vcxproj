@@ -71,6 +71,7 @@
     <ClInclude Include="BST.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="decode.txt" />
     <Text Include="morse.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

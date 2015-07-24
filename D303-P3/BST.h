@@ -39,7 +39,7 @@ public:
 	//Make the Morse Code Tree
 	void make_morse_tree(ifstream& fin);
 
-	//Insert with a 
+	//Insert from file 
 	void insert_with_code(string& letter_code, int idx, BTNode*& local_root,
 		char& letter);
 
@@ -51,6 +51,13 @@ public:
 
 	//decoding method
 	string decoding(BTNode* local_root, string letter);
+
+	//in-order traverse wrapper
+	string in_order() ;
+
+	//in-order recursive function
+	void in_order_recursive(string& result, BTNode*& local_root) ;
+
 	
 	//encode using map
 	string encode(string code);

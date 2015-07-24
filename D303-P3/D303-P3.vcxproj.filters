@@ -31,5 +31,8 @@
     <Text Include="morse.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="decode.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

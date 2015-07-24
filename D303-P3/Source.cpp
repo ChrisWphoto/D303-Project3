@@ -11,11 +11,12 @@ int main(){
 	//open file stream for morse.txt
 	ifstream fin("morse.txt");
 
-	//declare new empty tree with one BTNode
+	//declare new empty tree and create morse code 
 	BST tree;
-
 	tree.make_morse_tree(fin);
 	
+	//In-order traverse to check validity
+	string in_order_result = tree.in_order();
 
 	//send in file to decode into english
 	ifstream ffin("decode.txt");
@@ -31,6 +32,7 @@ int main(){
 	cout << tree.decode_morse(encoded) << endl;
 	letter = letter.substr(1);
 
+	cout << endl << endl;
 	system("pause");
 	return 0;
 }
