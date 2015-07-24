@@ -19,12 +19,18 @@ int main(){
 
 	//send in file to decode into english
 	ifstream ffin("decode.txt");
-	cout << tree.decode_morse(ffin);
+	cout << tree.decode_morse(ffin) << endl;
 	
 	//can accept strings only, this will cause an error b/c its too long
-	string letter = "__...";
-	cout << tree.decode_morse(letter);
+	string letter = "__..";
+	cout << tree.decode_morse(letter) << endl;
 
+	string engLetter = "hello there";
+	string encoded = tree.encode(engLetter);
+	cout << encoded << endl;
+	cout << tree.decode_morse(encoded) << endl;
 	letter = letter.substr(1);
+
+	system("pause");
 	return 0;
 }

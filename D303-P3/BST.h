@@ -12,14 +12,12 @@ public:
 	struct BTNode
 	{
 		string dataKey;
-		string dataValue;
 		BTNode* left;
 		BTNode* right;
 
 		BTNode()
 		{
 			dataKey = "";
-			dataValue = "";
 			left = nullptr;
 			right = nullptr;
 		}
@@ -27,18 +25,16 @@ public:
 		virtual ~BTNode() {}
 	};
 
+	map<string, char> encoder;
+
 	//data
 	BTNode* root;
 	
 	//default Constructor
-	BST() {	root = new BTNode(); }
+	BST();
 
 	//constructor
 	BST(BTNode* new_root) { root = new_root; }
-
-	string find(BTNode* local_root, const string& target);
-	bool insert(BTNode*& local_root, const map<string, char>::iterator& item);
-
 
 	//Make the Morse Code Tree
 	void make_morse_tree(ifstream& fin);
@@ -56,6 +52,8 @@ public:
 	//decoding method
 	string decoding(BTNode* local_root, string letter);
 	
+	//encode using map
+	string encode(string code);
 };
 
 

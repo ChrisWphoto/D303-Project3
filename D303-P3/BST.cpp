@@ -1,38 +1,41 @@
 #include "BST.h"
+#include <iostream>
 #include <fstream>
 #include <sstream>
-bool BST::insert(BTNode*& local_root, const map<string,char>::iterator& item)
+
+BST::BST()
 {
-	if (local_root == NULL)
-	{
-		local_root = new BTNode();
-		local_root->dataKey = item->first;
-		local_root->dataValue = item->second;
-		return true;
-	}
-	else
-	{
-		if (local_root->dataKey > item->first)
-			return insert(local_root->left, item);
-		else if (local_root->dataKey < item->first)
-			return insert(local_root->right, item);
-		else
-			return false;
-	}
-}
-string BST::find(BTNode* local_root, const string& target)
-{
-	if (local_root == NULL)
-		return NULL;
-	if (local_root->dataKey > target)
-		return find(local_root->left, target);
-	else if (local_root->dataKey < target)
-		return find(local_root->right, target);
-	else
-		return local_root->dataValue;
+	root = new BTNode();
+	// map for encoding english -> morse code
+	encoder["._"] = 'a';
+	encoder["_..."] = 'b';
+	encoder["_._."] = 'c';
+	encoder["_.."] = 'd';
+	encoder["."] = 'e';
+	encoder[".._."] = 'f';
+	encoder["__."] = 'g';
+	encoder["...."] = 'h';
+	encoder[".."] = 'i';
+	encoder[".____"] = 'j';
+	encoder["_._"] = 'k';
+	encoder["._.."] = 'l';
+	encoder["__"] = 'm';
+	encoder["_."] = 'n';
+	encoder["___"] = 'o';
+	encoder[".__."] = 'p';
+	encoder["__._"] = 'q';
+	encoder["._."] = 'r';
+	encoder["..."] = 's';
+	encoder["_"] = 't';
+	encoder[".._"] = 'u';
+	encoder["..._"] = 'v';
+	encoder[".__"] = 'w';
+	encoder["_.._"] = 'x';
+	encoder["_.__"] = 'y';
+	encoder["__.."] = 'z';
 }
 
-//
+
 void BST::make_morse_tree(ifstream& fin){
 	string letter_code;
 	while (fin >> letter_code){
@@ -59,8 +62,7 @@ void BST::insert_with_code(string& letter_code, int idx, BTNode*& local_root,
 	}
 
 	else //time for insertion of letter
-		local_root->dataKey = letter; 
-
+		local_root->dataKey = letter;
 
 }
 
@@ -129,6 +131,8 @@ string BST::decoding(BTNode* root,  string letter)
 			if (current->right == NULL){return "The code is too long";}
 			current = current->right;
 			break;
+		case '|':  // represents spaces between words
+			return " ";
 		default:
 			error = string("The character, ") + step + (" is not recognized.");
 			return error;
@@ -136,4 +140,30 @@ string BST::decoding(BTNode* root,  string letter)
 	}
 	return current->dataKey;
 	
+}
+
+// encoder
+string BST::encode(string code)
+{
+	string encodedValue = "";
+	for (int i = 0; i < code.size(); i++)
+	{
+		if (code[i] == ' ')
+		{
+			encodedValue += "| "; // this will represent spaces between words - if we change it, make sure to change it in the decoding function
+		}
+		else
+		{
+			for (map<string, char>::iterator it = encoder.begin(); it != encoder.end(); ++it) 
+			{
+				// iterate through map until you find the english character, then append the respective morse code
+				if (it->second == code[i])
+				{
+					encodedValue += it->first + " ";
+					break;
+				}
+			}
+		}
+	}
+	return encodedValue;
 }
