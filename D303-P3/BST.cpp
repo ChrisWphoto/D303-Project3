@@ -69,17 +69,15 @@ void BST::insert_with_code(string& letter_code, int idx, BTNode*& local_root,
 //the parser for reading from file
 string BST::decode_morse(ifstream& fin)
 {
-	if (!fin.good())
-	{
-		return "The file can not be opened";
+	if (!fin.good()){
+		return "ERROR: The file cannot be opened";
 	}
 	stringstream buffer;
 	buffer << fin.rdbuf();
 	string code_to_decipher, decoded = "";
 
-	while (buffer >> code_to_decipher)
-	{
-		decoded += decoding(root, code_to_decipher);
+	while (buffer >> code_to_decipher){
+		decoded += " " + decoding(root, code_to_decipher);
 	}
 
 	return decoded;
@@ -91,9 +89,8 @@ string BST::decode_morse(string code)
 	stringstream buffer(code);
 	string code_to_decipher, decoded = "";
 
-	while (buffer >> code_to_decipher)
-	{
-		decoded += decoding(root, code_to_decipher);
+	while (buffer >> code_to_decipher){
+		decoded += " " + decoding(root, code_to_decipher);
 	}
 
 	return decoded;
@@ -103,39 +100,28 @@ string BST::decode_morse(string code)
 //the searching portion
 string BST::decoding(BTNode* root,  string letter)
 {
-	string error;
 	//check to see if there is a tree ready	
-	if (root == NULL)
-	{
-		error = "The tree is empty! Be sure to populate the data first";
-		return error;
+	if (root == NULL){
+		return  "ERROR: The tree is empty! Be sure to populate the data first";
 	}
-	if (letter.empty())
-	{
-		error = "There needs to be a code to decode!";
-		return error;
+	if (letter.empty()){
+		return "ERROR: There needs to be a code to decode!";
 	}
 	char step;
 	BTNode * current = root;
-	for (int i = 0; i < letter.size(); i++)
-	{
-		
+	for (int i = 0; i < letter.size(); i++){
 		step = letter[i];
-		switch (step)
-		{
+		switch (step){
 		case '.':
-			if (current->left == NULL){return " The code is too long";}
+			if (current->left == NULL){return "ERROR: The code \""+letter+"\" is too long";}
 			current = current->left;
 			break;
 		case '_':
-			if (current->right == NULL){return " The code is too long";}
+			if (current->right == NULL){return "ERROR: The code \"" + letter + "\" is too long";}
 			current = current->right;
 			break;
-		case '|':  // represents spaces between words
-			return " ";
 		default:
-			error = string(" Error: Character, ") + step + (" is not recognized.");
-			return error;
+			return string(" ERROR: Character, ") + step + " is not recognized.";
 		}
 	}
 	return current->dataKey;
@@ -150,7 +136,7 @@ string BST::encode(string code)
 	{
 		if (code[i] == ' ')
 		{
-			encodedValue += "| "; // this will represent spaces between words - if we change it, make sure to change it in the decoding function
+			continue;//if there's a space then we will skip it to the next letter
 		}
 		else
 		{

@@ -23,7 +23,7 @@ int main(){
 	cout << tree.decode_morse(ffin) << endl;
 	
 	//can accept strings only, this will cause an error b/c its too long
-	string letter = "__..";
+	string letter = "__...";
 	cout << tree.decode_morse(letter) << endl;
 
 	string engLetter = "hello there";
