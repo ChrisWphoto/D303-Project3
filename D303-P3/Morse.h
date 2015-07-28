@@ -43,7 +43,7 @@ public:
 	void insert_with_code(string& letter_code, int idx, BTNode*& local_root,
 		char& letter);
 
-	//Decode from file, parser
+	//Decode from a file, parser
 	string decode_morse(ifstream& fin);
 
 	//decode from string, parser
