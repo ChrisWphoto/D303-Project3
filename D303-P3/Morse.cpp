@@ -1,9 +1,9 @@
-#include "BST.h"
+#include "Morse.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-BST::BST()
+Morse::Morse()
 {
 	root = new BTNode();
 	// map for encoding english -> morse code
@@ -35,8 +35,8 @@ BST::BST()
 	encoder["__.."] = 'z';
 	}
 
-
-void BST::make_morse_tree(ifstream& fin){
+//wrapper for making morse  decode tree
+void Morse::make_morse_tree(ifstream& fin){
 	string letter_code;
 	while (fin >> letter_code){
 		char letter = letter_code[0]; //store letter for eventual insertion
@@ -45,7 +45,7 @@ void BST::make_morse_tree(ifstream& fin){
 }
 
 
-void BST::insert_with_code(string& letter_code, int idx, BTNode*& local_root,
+void Morse::insert_with_code(string& letter_code, int idx, BTNode*& local_root,
 	char& letter){
 	if (idx == letter_code.length() + 1) //one past the end of the code
 		return;
@@ -67,7 +67,7 @@ void BST::insert_with_code(string& letter_code, int idx, BTNode*& local_root,
 }
 
 //the parser for reading from file
-string BST::decode_morse(ifstream& fin)
+string Morse::decode_morse(ifstream& fin)
 {
 	if (!fin.good())
 	{
@@ -86,7 +86,7 @@ string BST::decode_morse(ifstream& fin)
 }
 
 //overloaded to accept plain string code
-string BST::decode_morse(string code)
+string Morse::decode_morse(string code)
 {
 	stringstream buffer(code);
 	string code_to_decipher, decoded = "";
@@ -101,7 +101,7 @@ string BST::decode_morse(string code)
 }
 
 //the searching portion
-string BST::decoding(BTNode* root,  string letter)
+string Morse::decoding(BTNode* root,  string letter)
 {
 	string error;
 	//check to see if there is a tree ready	
@@ -142,8 +142,8 @@ string BST::decoding(BTNode* root,  string letter)
 	
 }
 
-// encoder
-string BST::encode(string code)
+//encoder
+string Morse::encode(string code)
 {
 	string encodedValue = "";
 	for (int i = 0; i < code.size(); i++)
@@ -169,14 +169,14 @@ string BST::encode(string code)
 }
 
 //in-order traverse wrapper
-string BST::in_order() {
+string Morse::in_order() {
 	string result;
 	in_order_recursive(result, root);
 	return result;
 }
 
 //in-order recursive function
-void BST::in_order_recursive(string& result, BTNode*& local_root) {
+void Morse::in_order_recursive(string& result, BTNode*& local_root) {
 	if (local_root != nullptr){
 		in_order_recursive(result, local_root->left);
 		result += local_root->dataKey;

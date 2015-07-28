@@ -2,10 +2,10 @@
 #include <map>
 using namespace std;
 
-#ifndef BST_H
-#define BST_H
+#ifndef Morse_H
+#define Morse_H
 
-class BST 
+class Morse 
 {
 public:
 
@@ -31,10 +31,10 @@ public:
 	BTNode* root;
 	
 	//default Constructor
-	BST();
+	Morse();
 
 	//constructor
-	BST(BTNode* new_root) { root = new_root; }
+	Morse(BTNode* new_root) { root = new_root; }
 
 	//Make the Morse Code Tree
 	void make_morse_tree(ifstream& fin);
@@ -58,7 +58,6 @@ public:
 	//in-order recursive function
 	void in_order_recursive(string& result, BTNode*& local_root) ;
 
-	
 	//encode using map
 	string encode(string code);
 };
