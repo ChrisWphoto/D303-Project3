@@ -31,7 +31,6 @@ int main(){
 	cout << tree.decode_morse(letter) << endl;
 
 	//Encoding English --> Morse
-	//'|' is the delimeter between words
 	string engLetter = "hello there";
 	string encoded = tree.encode(engLetter);
 	cout << "Encoding the string: '" << tree.decode_morse(encoded) << "':"<<endl;
